@@ -602,6 +602,7 @@ def process_running(t, n, nt1, img, ivid, rois, runind, runs, rend):
 
 def save(proc, savepath=None):
     # save ROIs and traces
+    
     basename, filename = os.path.split(proc["filenames"][0][0])
     filename, ext = os.path.splitext(filename)
     if savepath is not None:

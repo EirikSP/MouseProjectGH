@@ -1,21 +1,29 @@
 import numpy as np
-#from process.py import process
+
 from facemap.process import *
 import os
 
 
-proc = np.load("ING71_MEC_230309\AVI\sample.npy", allow_pickle=True).item()
 
+wd = os.path.relpath(os.getcwd())
+print(wd)
+datafolder = os.path.join(wd, 'data')
+print(datafolder)
 
-files = os.listdir('ING71_MEC_230309\AVI')
+resultsfolder = os.path.join(datafolder, 'resultsnpy')
 
-clean_files = [file for file in files if file[-2:] == 'vi']
+proc = np.load("sample.npy", allow_pickle=True).item()
 
+proc['savepath'] = resultsfolder
 
-for filename in clean_files:
-    filename_complete = [[".\ING71_MEC_230309\AVI\\" + filename]]
+files = os.listdir(datafolder)
+
+clean_files = [file for file in files if file[-3:] == 'avi']
+
+for filename in clean_files[:4]:
+    filename_complete = [[os.path.join(datafolder, filename)]]
     print(filename_complete)
-    run(filenames=filename_complete, proc=proc)
+    run(filenames=filename_complete, proc=proc, savepath=1)
 
 # Lagt til ca under linje 705, under linjen som sier  "sx = proc["sx"]"
 #            motSVD = proc['motSVD']
