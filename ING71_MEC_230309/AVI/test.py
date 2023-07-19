@@ -39,7 +39,7 @@ def process_folder(datafolder_global_path):
             print('Invalid file name')
 
     #Formats filename and processes avi file, saving the resulting file in the "resultsnpy" folder in the same location.
-    for filename in clean_files[:5]:
+    for filename in clean_files:
         filename_complete = [[os.path.join(datafolder_global_path, filename)]]
         print(filename_complete)
         run(filenames=filename_complete, proc=proc, savepath=1)
