@@ -10,7 +10,8 @@ from scipy.linalg import eigh
 from scipy.ndimage import gaussian_filter1d
 from sklearn.decomposition import PCA
 
-from facemap.pose import refine_pose
+#CHANGE
+#from facemap.pose import refine_pose
 
 
 def update_mainwindow_progressbar(MainWindow, GUIobject, s, prompt):
@@ -287,9 +288,12 @@ def get_keypoints_for_neuralpred(
     keypoints_normalized : 2D-array
         normalized keypoints of shape [n_frames, n_keypoints * 2]
     """
+
+    #CHANGE
+    """
     if bodyparts is None:
         bodyparts = refine_pose.BODYPARTS
-
+    """
     pose_data = load_keypoints(bodyparts, kp_file)
     print("pose data shape", pose_data.shape)
     xy = np.stack((pose_data[0].T, pose_data[1].T), axis=-1)
