@@ -8,7 +8,7 @@ import sys
 
 #wd = os.path.relpath(os.getcwd())
 
-datafolder = "D:\ING71_MEC_230314\AVI"
+#datafolder = "D:\ING71_MEC_230314\AVI"
 #datafolder = os.path.join(wd, 'data')
 
 input_foldername = sys.argv[1]
@@ -40,7 +40,7 @@ def process_folder(datafolder_global_path):
 
     #Formats filename and processes avi file, saving the resulting file in the "resultsnpy" folder in the same location.
     for filename in clean_files:
-        filename_complete = [[os.path.join(datafolder, filename)]]
+        filename_complete = [[os.path.join(datafolder_global_path, filename)]]
         print(filename_complete)
         run(filenames=filename_complete, proc=proc, savepath=1)
 
