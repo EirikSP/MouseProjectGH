@@ -4,9 +4,12 @@ import plot_utils
 
 
 def plot_area(proc, show=True, save=False, filename='area'):
-    plt.plot(minmax_scale(proc['pupil'][0]['area']))
+    file = proc['filenames'][0][0]
+    file = file.split('/')[-1]
+
+    plt.plot(proc['pupil'][0]['area'])
     plt.xlabel('frames')
-    plt.title('Area')
+    plt.title('Area ' + file)
     if save:
         plt.savefig('./figures/' + filename + '.pdf')
     if show:
