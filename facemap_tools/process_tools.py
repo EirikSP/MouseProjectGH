@@ -54,7 +54,15 @@ def create_procs(resultfolder):
     procs = {}
 
     files = os.listdir(resultfolder)
-    clean_files = [file for file in files if file[-3:] == 'npy']
+    clean_files = []
+
+    #Checks for .avi files and catches exception if filenames are shorter than 4 letters.
+    for file in files:
+        try:
+            if file[-4:] == ".npy":
+                clean_files.append(file)
+        except:
+            print('Invalid file name')
     
     for filename in clean_files:
         filename_complete = os.path.join(resultfolder, filename)
