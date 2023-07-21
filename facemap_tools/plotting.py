@@ -1,26 +1,25 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import minmax_scale
-
-# import sys
-# import os
-# sys.path.append(os.path.join(os.getcwd(), '..'))
-# import plot_utils
+import facemap_tools.plot_utils
 
 
-def plot_area(proc, show=True, save=False, filename='area'):
+
+def plot_area(proc, zoom=False, show=True, save=False, filename='area'):
     file = proc['filenames'][0][0]
     file = file.split('/')[-1]
-
-    # avg = np.mean(proc['pupil'])
 
     plt.plot(proc['pupil'][0]['area'])
     plt.xlabel('frames')
     plt.title('Area ' + file)
+    
+    if zoom:
+        avg = np.mean(proc['pupil'][0]['area'])
+        std = np.std(proc['pupil'][0]['area'])
+        plt.ylim((avg - 3*std, avg + 3*std))
     if save:
         plt.savefig('./figures/' + filename + '.pdf')
     if show:
-        # plt.ylim((500,800))
         plt.show()
 
 
@@ -46,3 +45,4 @@ def plot_blink_and_area(proc, proc_blink=None, show=True, save=False, filename='
         plt.savefig('./figures/' + filename + '.pdf')
     if show:
         plt.show()
+
