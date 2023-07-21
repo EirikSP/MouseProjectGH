@@ -1,9 +1,10 @@
 import numpy as np
-from facemap.process import *
+
+
 import os
 import sys
-
-
+sys.path.append(os.path.join(os.getcwd(), '..'))
+from facemap.process import *
 
 #wd = os.path.relpath(os.getcwd())
 
@@ -11,7 +12,7 @@ import sys
 #datafolder = os.path.join(wd, 'data')
 
 
-def process_folder(datafolder_global_path, proc_path):
+def process_folder(datafolder_global_path, proc_path=None):
     resultsfolder = os.path.join(datafolder_global_path, 'resultsnpy')
     try:
         os.mkdir(resultsfolder)
@@ -19,8 +20,6 @@ def process_folder(datafolder_global_path, proc_path):
         print("Folder already exists.")
 
     #Loads the "settings" file for the processing and sets the savepath to be "/.../.../datafolder_global_path/resultsnpy"
-    proc = np.load(proc_path, allow_pickle=True).item()
-    proc['savepath'] = resultsfolder
 
     #Finds all elements in datafolder.
     files = os.listdir(datafolder_global_path)
@@ -33,6 +32,13 @@ def process_folder(datafolder_global_path, proc_path):
                 clean_files.append(file)
         except:
             print('Invalid file name')
+    
+    if(proc_path is not None):
+        proc = np.load(proc_path, allow_pickle=True).item()
+    else:
+        #Gets the sample file from a file similar to "/.../.../datafolder_global_path/ING....2309010_sample.npy"
+        proc = np.load(os.path.join(datafolder_global_path, clean_files[0][:16] + '_sample.npy'), allow_pickle=True).item()
+    proc['savepath'] = resultsfolder
 
     #Formats filename and processes avi file, saving the resulting file in the "resultsnpy" folder in the same location.
     for filename in clean_files:
@@ -67,6 +73,6 @@ def create_procs(resultfolder):
 
 if __name__ == '__main__':
     input_foldername = sys.argv[1]
-    proc_path = sys.argv[2]
+    #proc_path = sys.argv[2]
 
     process_folder(input_foldername)
