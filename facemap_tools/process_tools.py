@@ -5,14 +5,17 @@ import os
 import sys
 sys.path.append(os.path.join(os.getcwd(), '..'))
 from facemap.process import *
+from combine_runs import combine_results_folder
 
-#wd = os.path.relpath(os.getcwd())
 
-#datafolder = "D:\ING71_MEC_230314\AVI"
-#datafolder = os.path.join(wd, 'data')
 
 
 def process_folder(datafolder_global_path, proc_path=None):
+    """
+    Args:
+        datafolder_global_path - The global path of the folder that contains the video files.
+        proc_path - Optional global path for the file that contains the settings for the processing of the video files. Defaults to "datafolder_global_path/{Name for mouse and day: first 16 letters of video files}_sample.npy"
+    """
     resultsfolder = os.path.join(datafolder_global_path, 'resultsnpy')
     try:
         os.mkdir(resultsfolder)
@@ -47,6 +50,25 @@ def process_folder(datafolder_global_path, proc_path=None):
         run(filenames=filename_complete, proc=proc, savepath=1)
 
 
+
+def process_folder_combine_runs(datafolder_global_path, proc_path=None):
+    """
+    Runs process_folder and then runs combine_results_folder.
+    Processes all video files to npy files and then extracts the area and area_smooth values from the segmented experiment runs and concatenates them into one arrays for a singular run. Then saves the combined runs in "datafolder_global_path/resultsnpy/run_based"
+
+    Args:
+        datafolder_global_path - The global path of the folder that contains the video files.
+        proc_path - Optional global path for the file that contains the settings for the processing of the video files. Defaults to "datafolder_global_path/{Name for mouse and day: first 16 letters of video files}_sample.npy"
+    """
+    process_folder(datafolder_global_path, proc_path=proc_path)
+    results_folder = os.path.join(datafolder_global_path, 'resultsnpy')
+    combine_results_folder(results_folder)
+
+
+
+
+
+
 def create_procs(resultfolder):
     """Creating proc-objects from resultfolders (which contain npy-files)
 
@@ -73,6 +95,9 @@ def create_procs(resultfolder):
 
 if __name__ == '__main__':
     input_foldername = sys.argv[1]
-    #proc_path = sys.argv[2]
+    try:
+        proc_path = sys.argv[2]
+        process_folder_combine_runs(input_foldername, proc_path=proc_path)
+    except:
+        process_folder_combine_runs(input_foldername)
 
-    process_folder(input_foldername)
