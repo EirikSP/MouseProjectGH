@@ -5,7 +5,7 @@ import os
 import sys
 sys.path.append(os.path.join(os.getcwd(), '..'))
 from facemap.process import *
-from combine_runs import combine_results_folder
+from facemap_tools.combine_runs import combine_results_folder
 
 
 
