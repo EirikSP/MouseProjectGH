@@ -5,11 +5,11 @@ import facemap_tools.plot_utils
 
 
 
-def plot_area(proc, zoom=False, show=True, save=False, filename='area'):
+def plot_area(proc, zoom=False, show=True, save=False, filename='area', **kwargs):
     file = proc['filenames'][0][0]
     file = file.split('/')[-1][:-4]
 
-    plt.plot(proc['pupil'][0]['area'])
+    plt.plot(proc['pupil'][0]['area'], **kwargs)
     plt.xlabel('frames')
 
     if zoom:
