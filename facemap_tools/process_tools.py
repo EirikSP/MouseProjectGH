@@ -100,6 +100,44 @@ def create_procs(resultfolder):
     return procs
 
 
+def create_areas(resultfolder):
+    """NB, the returned dictionaries are not necessarily sorted. Parallelization<3
+
+    Args:
+        resultfolder (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    areas = {}
+    areas_smooth = {}
+
+    files = os.listdir(resultfolder)
+    area_files = []
+    area_smooth_files = []
+
+    for file in files:
+        try:
+            if file[-8:] == "area.npy":
+                area_files.append(file)
+            elif file[-10:] == "smooth.npy":
+                area_smooth_files.append(file)
+        except:
+            print(f"{file} is an invalid file name")
+
+    for filename in area_files:
+        filename_complete = os.path.join(resultfolder, filename)
+        area = np.load(filename_complete, allow_pickle=True)
+        areas[filename[17:20]] = area 
+
+    for filename in area_smooth_files:
+        filename_complete = os.path.join(resultfolder, filename)
+        area_smooth = np.load(filename_complete, allow_pickle=True)
+        areas_smooth[filename[17:20]] = area_smooth 
+
+    return areas, areas_smooth
+
+
 
 if __name__ == '__main__':
     input_foldername = sys.argv[1]
@@ -108,4 +146,5 @@ if __name__ == '__main__':
         process_folder_combine_runs(input_foldername, proc_path=proc_path)
     except:
         process_folder_combine_runs(input_foldername)
+
 
