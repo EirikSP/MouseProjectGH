@@ -141,10 +141,20 @@ def create_areas(resultfolder):
 
 if __name__ == '__main__':
     input_foldername = sys.argv[1]
-    try:
+
+    # Trouble with the default in combine_runs (my bad), and it goes into both (weird)
+    # try:
+    #     proc_path = sys.argv[2]
+    #     print('hey1')
+    #     # process_folder_combine_runs(input_foldername, proc_path=proc_path)
+    # except:
+    #     print('hey2')
+    #     # process_folder_combine_runs(input_foldername)
+
+
+    if len(sys.argv) > 2:
         proc_path = sys.argv[2]
         process_folder_combine_runs(input_foldername, proc_path=proc_path)
-    except:
+    else:
         process_folder_combine_runs(input_foldername)
-
 
