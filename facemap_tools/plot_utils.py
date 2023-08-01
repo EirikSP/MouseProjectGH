@@ -2,13 +2,13 @@ import matplotlib.pyplot as plt
 from cycler import cycler
 import seaborn as sns
 
-colors = [
-    sns.color_palette('muted')[2],
-    'mediumorchid',
-    sns.color_palette('colorblind')[4],
-    sns.color_palette('husl')[2],
-    sns.color_palette('husl')[5],
-]
+# colors = [
+#     sns.color_palette('muted')[2],
+#     'mediumorchid',
+#     sns.color_palette('colorblind')[4],
+#     sns.color_palette('husl')[2],
+#     sns.color_palette('husl')[5],
+# ]
 
 # Style
 sns.set_style("darkgrid")
