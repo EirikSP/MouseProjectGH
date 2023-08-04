@@ -10,6 +10,8 @@ import seaborn as sns
 #     sns.color_palette('husl')[5],
 # ]
 
+colors = sns.color_palette('Set2')
+
 # Style
 sns.set_style("darkgrid")
 
